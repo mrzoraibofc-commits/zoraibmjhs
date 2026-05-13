@@ -1,752 +1,611 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ZORAIB-MD SESSION</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ZORAIB-MD | Connect &amp; Deploy</title>
+    <!-- Font Awesome 6 & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --primary-color: #1a1a2e;
-        --secondary-color: #16213e;
-        --accent-color: #0f3460;
-        --text-color: #f1f1f1;
-        --background-color: #121212;
-        --hover-color: #2d2d44;
-        --border-color: rgba(255, 255, 255, 0.08);
-        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        --success-color: #4ade80;
-        --card-bg: rgba(255, 255, 255, 0.02);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-        color: var(--text-color);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
-        backdrop-filter: blur(20px);
-      }
-
-      .container {
-        width: 100%;
-        max-width: 450px;
-        background: var(--card-bg);
-        border-radius: 24px;
-        padding: 30px;
-        box-shadow: 
-          0 20px 60px rgba(0, 0, 0, 0.5),
-          0 0 0 1px rgba(255, 255, 255, 0.05),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      }
-
-      .header {
-        text-align: center;
-        margin-bottom: 30px;
-        position: relative;
-      }
-
-      .logo {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 20px;
-        background: var(--gradient-primary);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        color: white;
-        box-shadow: 
-          0 10px 30px rgba(102, 126, 234, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
-        position: relative;
-        transform: perspective(1000px) rotateY(0deg);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .logo:hover {
-        transform: perspective(1000px) rotateY(10deg) scale(1.05);
-        box-shadow: 
-          0 15px 40px rgba(102, 126, 234, 0.6),
-          0 0 0 1px rgba(255, 255, 255, 0.2);
-      }
-
-      .logo::after {
-        content: '';
-        position: absolute;
-        inset: 1px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 19px;
-        z-index: 1;
-      }
-
-      .logo i {
-        z-index: 2;
-        position: relative;
-      }
-
-      .title {
-        font-size: 28px;
-        font-weight: 800;
-        margin-bottom: 8px;
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        letter-spacing: -0.5px;
-      }
-
-      .subtitle {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.6);
-        margin-bottom: 25px;
-        font-weight: 400;
-        letter-spacing: 0.3px;
-      }
-
-      .social-icons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 25px;
-      }
-
-      .social-icons a {
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 18px;
-        text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .social-icons a::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: currentColor;
-        opacity: 0.1;
-        transition: opacity 0.3s ease;
-      }
-
-      .social-icons a.youtube {
-        color: #ff0000;
-      }
-      .social-icons a.telegram {
-        color: #0088cc;
-      }
-      .social-icons a.whatsapp {
-        color: #25D366;
-      }
-      .social-icons a.github {
-        color: #ffffff;
-      }
-
-      .social-icons a:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        border-color: rgba(255, 255, 255, 0.2);
-      }
-
-      .social-icons a:hover::before {
-        opacity: 0.15;
-      }
-
-      /* Toggle Switch Styles */
-      .toggle-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 25px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 16px;
-        padding: 4px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
-        position: relative;
-      }
-
-      .toggle-option {
-        flex: 1;
-        padding: 14px 20px;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        z-index: 1;
-        color: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);
-      }
-
-      .toggle-option.active {
-        background: var(--gradient-primary);
-        color: white;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-      }
-
-      .toggle-option:not(.active):hover {
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .toggle-option i {
-        margin-right: 8px;
-      }
-
-      .copy-btn {
-        width: 100%;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        color: rgba(255, 255, 255, 0.8);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-        margin-top: 20px;
-      }
-
-      .copy-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        color: white;
-      }
-
-      .input-group {
-        margin-bottom: 25px;
-        transition: all 0.3s ease;
-      }
-
-      .input-group.hidden {
-        display: none;
-      }
-
-      .input-label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 600;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.8);
-        letter-spacing: 0.5px;
-      }
-
-      .input-field {
-        width: 100%;
-        padding: 16px 20px;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--text-color);
-        font-size: 15px;
-        font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-      }
-
-      .input-field::placeholder {
-        color: rgba(255, 255, 255, 0.3);
-      }
-
-      .input-field:focus {
-        outline: none;
-        border-color: rgba(102, 126, 234, 0.5);
-        box-shadow: 
-          0 0 0 3px rgba(102, 126, 234, 0.1),
-          0 4px 20px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .generate-btn {
-        width: 100%;
-        padding: 18px;
-        background: var(--gradient-primary);
-        border: none;
-        border-radius: 16px;
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-bottom: 20px;
-        letter-spacing: 0.5px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .generate-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: 0.5s;
-      }
-
-      .generate-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 
-          0 15px 40px rgba(102, 126, 234, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
-      }
-
-      .generate-btn:hover::before {
-        left: 100%;
-      }
-
-      .generate-btn.hidden {
-        display: none;
-      }
-
-      .code-display {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 20px;
-        border-radius: 16px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        font-family: 'Courier New', monospace;
-        letter-spacing: 2px;
-        color: var(--success-color);
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .qr-display {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 30px;
-        border-radius: 16px;
-        text-align: center;
-        margin-bottom: 20px;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        display: none;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .qr-display::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--gradient-primary);
-        opacity: 0.05;
-        z-index: 0;
-      }
-
-      .qr-image {
-        max-width: 280px;
-        max-height: 280px;
-        margin: 0 auto 20px;
-        border-radius: 16px;
-        box-shadow: 
-          0 15px 35px rgba(0, 0, 0, 0.3),
-          0 0 0 1px rgba(255, 255, 255, 0.05);
-        position: relative;
-        z-index: 1;
-        background: white;
-        padding: 15px;
-      }
-
-      .qr-instructions {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
-        line-height: 1.6;
-        position: relative;
-        z-index: 1;
-      }
-
-      .success-message {
-        color: var(--success-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        font-size: 18px;
-        text-shadow: 0 2px 10px rgba(74, 222, 128, 0.3);
-      }
-
-      .error-message {
-        color: #ff6b6b;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        font-size: 16px;
-        text-shadow: 0 2px 10px rgba(255, 107, 107, 0.2);
-      }
-
-      .loading {
-        display: none;
-        text-align: center;
-        margin: 20px 0;
-      }
-
-      .loading i {
-        font-size: 28px;
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        /* ---------- GLOBAL RESET & LIGHT THEME (white background, consistent) ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        100% {
-          transform: rotate(360deg);
+
+        body {
+            font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;            /* pure white background */
+            color: #111111;
+            min-height: 100vh;
+            padding: 40px 24px;
         }
-      }
 
-      .footer {
-        text-align: center;
-        margin-top: 25px;
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.4);
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        letter-spacing: 0.5px;
-      }
+        .master-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
 
-      .footer p {
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-      }
+        /* ========== PAIR SECTION (original white design) ========== */
+        .pair-section {
+            max-width: 500px;
+            margin: 0 auto 60px auto;
+        }
 
-      .footer p:hover {
-        opacity: 1;
-      }
-
-      @media (max-width: 480px) {
         .container {
-          padding: 25px;
-          border-radius: 20px;
-          max-width: 400px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
         }
 
-        .code-display {
-          font-size: 17px;
-          min-height: 55px;
-          padding: 18px;
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), transparent);
         }
 
-        .qr-image {
-          max-width: 240px;
-          max-height: 240px;
+        .container::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 29px;
+            z-index: -1;
+            opacity: 0.1;
+            filter: blur(12px);
         }
 
-        .qr-display {
-          padding: 25px;
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .logo {
-          width: 70px;
-          height: 70px;
-          border-radius: 18px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.25);
+            transition: all 0.4s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 18px 35px rgba(102, 126, 234, 0.35);
         }
 
         .title {
-          font-size: 26px;
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
         }
-      }
 
-      /* Subtle glow effect for container */
-      .container {
-        position: relative;
-      }
+        .subtitle {
+            font-size: 14px;
+            color: #5b6b8c;
+            margin-bottom: 25px;
+        }
 
-      .container::after {
-        content: '';
-        position: absolute;
-        top: -1px;
-        left: -1px;
-        right: -1px;
-        bottom: -1px;
-        background: var(--gradient-primary);
-        border-radius: 25px;
-        z-index: -1;
-        opacity: 0.1;
-        filter: blur(15px);
-      }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-icons a {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d2d44;
+            font-size: 18px;
+            text-decoration: none;
+            background: #f5f5f9;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: 0.2s;
+        }
+
+        .social-icons a.youtube { color: #ff0000; }
+        .social-icons a.telegram { color: #0088cc; }
+        .social-icons a.whatsapp { color: #25D366; }
+        .social-icons a.github { color: #000000; }
+        .social-icons a:hover { transform: translateY(-3px); background: #eef2ff; }
+
+        .toggle-container {
+            display: flex;
+            background: #f2f2f8;
+            border-radius: 18px;
+            padding: 4px;
+            margin-bottom: 28px;
+        }
+
+        .toggle-option {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 14px;
+            font-weight: 600;
+            color: #555;
+            transition: 0.2s;
+        }
+
+        .toggle-option.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 6px 14px rgba(102, 126, 234, 0.2);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+        .input-group.hidden { display: none; }
+
+        .input-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #1e293b;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 18px;
+            background: #ffffff;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.25s;
+        }
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(102, 126, 234, 0.3); }
+        .generate-btn.hidden { display: none; }
+
+        .code-display {
+            background: #f9f9ff;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            font-family: monospace;
+            font-size: 18px;
+        }
+
+        .qr-display {
+            background: #f9f9ff;
+            padding: 28px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .qr-image { max-width: 220px; margin-bottom: 15px; background: white; padding: 12px; border-radius: 20px; }
+
+        .copy-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f5f5f9;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+        .copy-btn:hover { background: #eef2ff; transform: translateY(-2px); }
+
+        .loading { display: none; text-align: center; margin: 20px 0; }
+        .loading i { font-size: 28px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent; animation: spin 1s infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .success-message { color: #10b981; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .error-message { color: #e53e3e; display: flex; align-items: center; justify-content: center; gap: 12px; }
+
+        .footer-pair {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #8a99b9;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* ========== DEPLOYMENT SECTION (LIGHT THEME, consistent with pair) ========== */
+        .deploy-section {
+            margin-top: 60px;
+            background: #ffffff;
+            border-radius: 38px;
+            padding: 40px 30px 50px;
+            box-shadow: 0 25px 45px -18px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+        }
+
+        .deploy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 38px 38px 0 0;
+        }
+
+        .deploy-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .deploy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 8px 22px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #4c3f9b;
+            margin-bottom: 20px;
+        }
+
+        .deploy-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e1f4b, #5b4bc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .deploy-sub {
+            color: #5f6c9e;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .deploy-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0 2rem;
+        }
+
+        .deploy-card {
+            background: #fefefe;
+            border-radius: 2rem;
+            padding: 1.8rem 1.5rem;
+            width: 270px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eef2ff;
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.05);
+        }
+
+        .deploy-card:hover {
+            transform: translateY(-8px);
+            border-color: #c7b9ff;
+            box-shadow: 0 25px 35px -12px rgba(102, 126, 234, 0.2);
+        }
+
+        .platform-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-platform-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1e1f3a;
+            margin: 0.5rem 0;
+        }
+
+        .btn-deploy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f2fe;
+            padding: 0.7rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: #4c3f9b;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
+
+        .btn-deploy:hover {
+            background: linear-gradient(95deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.02);
+            border: none;
+        }
+
+        .deploy-footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #e2e8f0;
+            color: #6d7a9e;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 700px) {
+            .pair-section { max-width: 95%; }
+            .deploy-card { width: 100%; max-width: 280px; }
+            .deploy-title { font-size: 1.6rem; }
+            body { padding: 24px 16px; }
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <div class="logo"><i class="fas fa-robot"></i></div>
-        <h1 class="title">ZORAIB-MD</h1>
-        <p class="subtitle">Link your WhatsApp device</p>
-        <div class="social-icons">
-          <a
-            href=""
-            target="https://youtube.com/@ZoraibKashmiri?si=1YLE3C3V8ZM8t_5U"
-            class="youtube"
-            ><i class="fab fa-youtube"></i
-          ></a>
-          <a
-            href=""
-            target="@HASSANXZORAIB"
-            class="telegram"
-            ><i class="fab fa-facebook"></i
-          ></a>
-          <a href="" target="+9203247947238" class="whatsapp"
-            ><i class="fab fa-whatsapp"></i
-          ></a>
-          <a
-            href=""
-            target="https://github.com/mrzoraibofc-commits"
-            class="github"
-            ><i class="fab fa-github"></i
-          ></a>
+</head>
+<body>
+<div class="master-wrapper">
+    <!-- ===================== PAIR SECTION (original white) ===================== -->
+    <div class="pair-section">
+        <div class="container">
+            <div class="header">
+                <div class="logo"><i class="fas fa-robot"></i></div>
+                <h1 class="title">ZORAIB-MD</h1>
+                <p class="subtitle">Link your WhatsApp device</p>
+                <div class="social-icons">
+                    <a href="https://youtube.com/@ZoraibKashmiri?si=1YLE3C3V8ZM8t_5U" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/HASSANXZORAIB" target="_blank" class="telegram"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/9203247947238" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/mrzoraibofc-commits" target="_blank" class="github"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="toggle-container">
+                <div class="toggle-option active" data-mode="pair"><i class="fas fa-key"></i> Pair Code</div>
+                <div class="toggle-option" data-mode="qr"><i class="fas fa-qrcode"></i> QR Code</div>
+            </div>
+
+            <div class="input-group" id="inputGroup">
+                <label class="input-label">Enter your WhatsApp number with country code</label>
+                <input type="text" id="mobileNumber" class="input-field" placeholder="+923247947238" />
+            </div>
+
+            <button class="generate-btn" id="submit"><i class="fas fa-key"></i> Generate Pair Code</button>
+
+            <div class="loading" id="loading"><i class="fas fa-spinner"></i></div>
+            <div class="code-display" id="codeDisplay">Your pair code will appear here</div>
+            <div class="qr-display" id="qrDisplay">
+                <img id="qrImage" class="qr-image" src="" alt="QR Code" />
+                <div class="qr-instructions" id="qrInstructions">Scan this QR code with your WhatsApp app</div>
+            </div>
+
+            <button class="copy-btn" id="copy"><i class="fas fa-copy"></i> Copy Code</button>
+            <div class="footer-pair"><p>© 2026 Zoraib Kashmiri. All rights reserved.</p></div>
         </div>
-      </div>
-
-      <!-- Toggle Switch -->
-      <div class="toggle-container">
-        <div class="toggle-option active" data-mode="pair">
-          <i class="fas fa-key"></i> Pair Code
-        </div>
-        <div class="toggle-option" data-mode="qr">
-          <i class="fas fa-qrcode"></i> QR Code
-        </div>
-      </div>
-
-      <div class="input-group" id="inputGroup">
-        <label class="input-label"
-          >Enter your WhatsApp number with country code</label
-        >
-        <input
-          type="text"
-          id="mobileNumber"
-          class="input-field"
-          placeholder="+923247947238"
-          pattern="[+][0-9]{10,}"
-          title="Please enter country code starting with + followed by number"
-        />
-      </div>
-
-      <button class="generate-btn" id="submit">
-        <i class="fas fa-key"></i> Generate Pair Code
-      </button>
-
-      <div class="loading" id="loading">
-        <i class="fas fa-spinner"></i>
-      </div>
-
-      <div class="code-display" id="codeDisplay">
-        Your pair code will appear here
-      </div>
-
-      <div class="qr-display" id="qrDisplay">
-        <img id="qrImage" class="qr-image" src="" alt="QR Code" />
-        <div class="qr-instructions" id="qrInstructions">
-          Scan this QR code with your WhatsApp app
-        </div>
-      </div>
-
-      <button class="copy-btn" id="copy" onclick="copyCode()">
-        <i class="fas fa-copy"></i> Copy Code
-      </button>
-
-      <div class="footer">
-        <p>© 2026 Zoraib Kashmiri. All rights reserved.</p>
-      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-    <script>
-      let currentMode = "pair";
+    <!-- ===================== DEPLOYMENT SECTION (light theme, same white style) ===================== -->
+    <div class="deploy-section">
+        <div class="deploy-header">
+            <div class="deploy-badge"><i class="fas fa-cloud-upload-alt"></i> Deploy Now</div>
+            <h2 class="deploy-title">🚀  <strong>ZORAIB-MD </strong></h2>
+            <p class="deploy-sub">With one click on your favorite hosting platforms</p>
+        </div>
 
-      // Toggle functionality
-      document.querySelectorAll(".toggle-option").forEach((option) => {
+        <div class="deploy-grid">
+            <!-- Heroku -->
+            <div class="deploy-card">
+                <div class="platform-icon"><i class="fas fa-rocket" style="color:#79589F;"></i></div>
+                <div class="card-platform-name">Heroku</div>
+                <a href="https://dashboard.heroku.com/new?template=https://github.com/mrzoraibofc-commits/ZORAIB-MD" target="_blank" class="btn-deploy"><i class="fab fa-salesforce"></i> Deploy on Heroku</a>
+            </div>
+            <!-- Replit -->
+            <div class="deploy-card">
+                <div class="platform-icon"><i class="fas fa-code-branch" style="color:#F26207;"></i></div>
+                <div class="card-platform-name">Replit</div>
+                <a href="https://replit.com/https://github.com/mrzoraibofc-commits/ZORAIB-MD" target="_blank" class="btn-deploy"><i class="fab fa-replit"></i> Run on Replit</a>
+            </div>
+            <!-- Koyeb -->
+            <div class="deploy-card">
+                <div class="platform-icon"><i class="fas fa-cloud-upload-alt" style="color:#FF009D;"></i></div>
+                <div class="card-platform-name">Koyeb</div>
+                <a href="https://app.koyeb.com/deploy?type=git&repository=https://github.com/mrzoraibofc-commits/ZORAIB-MD" target="_blank" class="btn-deploy"><i class="fas fa-globe"></i> Deploy at Koyeb</a>
+            </div>
+            <!-- Railway -->
+            <div class="deploy-card">
+                <div class="platform-icon"><i class="fas fa-train" style="color:#FF8700;"></i></div>
+                <div class="card-platform-name">Railway</div>
+                <a href="https://railway.app/new/template?template=https://github.com/mrzoraibofc-commits/ZORAIB-MD" target="_blank" class="btn-deploy"><i class="fas fa-railway"></i> Deploy on Railway</a>
+            </div>
+            <!-- Render -->
+            <div class="deploy-card">
+                <div class="platform-icon"><i class="fas fa-cubes" style="color:#46E3B7;"></i></div>
+                <div class="card-platform-name">Render</div>
+                <a href="https://render.com/deploy?repo=https://github.com/mrzoraibofc-commits/ZORAIB-MD" target="_blank" class="btn-deploy"><i class="fas fa-cloud"></i> Deploy on Render</a>
+            </div>
+            <!-- Netlify -->
+            <div class="deploy-card">
+                <div class="platform-icon"><i class="fas fa-feather-alt" style="color:#CC00FF;"></i></div>
+                <div class="card-platform-name">Netlify</div>
+                <a href="https://app.netlify.com/start/deploy?repository=https://github.com/mrzoraibofc-commits/ZORAIB-MD" target="_blank" class="btn-deploy"><i class="fab fa-netlify"></i> Deploy to Netlify</a>
+            </div>
+        </div>
+
+        <div class="deploy-footer-note">
+            <i class="fas fa-star-of-life"></i>  
+            <br><span style="font-size: 0.75rem;">© 2026 Zoraib Kashmiri — Premium deployment </span>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+<script>
+    // ---------- PAIR/QR LOGIC (fully original, untouched) ----------
+    let currentMode = "pair";
+
+    document.querySelectorAll(".toggle-option").forEach((option) => {
         option.addEventListener("click", function () {
-          const mode = this.dataset.mode;
-          if (mode === currentMode) return;
-
-          // Update active state
-          document
-            .querySelectorAll(".toggle-option")
-            .forEach((opt) => opt.classList.remove("active"));
-          this.classList.add("active");
-
-          // Update mode
-          currentMode = mode;
-
-          // Update button and input visibility
-          const submitBtn = document.getElementById("submit");
-          const inputGroup = document.getElementById("inputGroup");
-
-          if (mode === "pair") {
-            submitBtn.innerHTML =
-              '<i class="fas fa-key"></i> Generate Pair Code';
-            submitBtn.classList.remove("hidden");
-            inputGroup.classList.remove("hidden");
-          } else {
-            submitBtn.classList.add("hidden");
-            inputGroup.classList.add("hidden");
-            // Auto-generate QR code when QR mode is selected
-            generateQRCode();
-          }
-
-          // Clear displays
-          document.getElementById("codeDisplay").innerHTML =
-            "Your pair code will appear here";
-          document.getElementById("qrDisplay").style.display = "none";
-          document.getElementById("codeDisplay").style.display = "flex";
+            const mode = this.dataset.mode;
+            if (mode === currentMode) return;
+            document.querySelectorAll(".toggle-option").forEach(opt => opt.classList.remove("active"));
+            this.classList.add("active");
+            currentMode = mode;
+            const submitBtn = document.getElementById("submit");
+            const inputGroup = document.getElementById("inputGroup");
+            if (mode === "pair") {
+                submitBtn.innerHTML = '<i class="fas fa-key"></i> Generate Pair Code';
+                submitBtn.classList.remove("hidden");
+                inputGroup.classList.remove("hidden");
+                document.getElementById("codeDisplay").innerHTML = "Your pair code will appear here";
+                document.getElementById("codeDisplay").style.display = "flex";
+                document.getElementById("qrDisplay").style.display = "none";
+            } else {
+                submitBtn.classList.add("hidden");
+                inputGroup.classList.add("hidden");
+                generateQRCode();
+            }
         });
-      });
+    });
 
-      async function generateQRCode() {
+    async function generateQRCode() {
         const codeDisplay = document.getElementById("codeDisplay");
         const qrDisplay = document.getElementById("qrDisplay");
         const loadingSpinner = document.getElementById("loading");
-
         loadingSpinner.style.display = "block";
         codeDisplay.innerHTML = "";
         qrDisplay.style.display = "none";
-
         try {
-          const response = await axios("/qr");
-
-          if (response.data.qr) {
-            document.getElementById("qrImage").src = response.data.qr;
-            document.getElementById("qrInstructions").innerHTML =
-              response.data.instructions.join("<br>");
-            qrDisplay.style.display = "block";
-            codeDisplay.style.display = "none";
-          } else {
-            codeDisplay.innerHTML =
-              '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Failed to generate QR code</div>';
-            codeDisplay.style.display = "flex";
-          }
+            const response = await axios("/qr");
+            if (response.data.qr) {
+                document.getElementById("qrImage").src = response.data.qr;
+                let instructionsText = response.data.instructions?.join("<br>") || "Scan this QR code with your WhatsApp app";
+                document.getElementById("qrInstructions").innerHTML = instructionsText;
+                qrDisplay.style.display = "block";
+                codeDisplay.style.display = "none";
+            } else {
+                codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Failed to generate QR code</div>';
+                codeDisplay.style.display = "flex";
+            }
         } catch (error) {
-          console.error("Error generating QR code:", error);
-          codeDisplay.innerHTML =
-            '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating QR code. Please try again.</div>';
-          codeDisplay.style.display = "flex";
+            console.error(error);
+            codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating QR code. Please try again.</div>';
+            codeDisplay.style.display = "flex";
         } finally {
-          loadingSpinner.style.display = "none";
+            loadingSpinner.style.display = "none";
         }
-      }
+    }
 
-      document.getElementById("submit").addEventListener("click", async (e) => {
+    document.getElementById("submit").addEventListener("click", async (e) => {
         e.preventDefault();
-
         const mobileNumberInput = document.getElementById("mobileNumber");
         const codeDisplay = document.getElementById("codeDisplay");
         const qrDisplay = document.getElementById("qrDisplay");
         const loadingSpinner = document.getElementById("loading");
-
         const mobileNumber = mobileNumberInput.value.trim();
         if (!mobileNumber) {
-          codeDisplay.innerHTML =
-            '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
-          return;
+            codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
+            codeDisplay.style.display = "flex";
+            return;
         }
-
         loadingSpinner.style.display = "block";
         codeDisplay.innerHTML = "";
         qrDisplay.style.display = "none";
-
         try {
-          const response = await axios(
-            `/pair?number=${mobileNumber.replace(/[^0-9]/g, "")}`,
-          );
-
-          const code = response.data.code || "Service Unavailable";
-          if (code === "Service Unavailable") {
-            codeDisplay.innerHTML =
-              '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
-          } else {
-            codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
-          }
-          codeDisplay.style.display = "flex";
+            const digitsOnly = mobileNumber.replace(/[^0-9]/g, "");
+            const response = await axios(`/pair?number=${digitsOnly}`);
+            const code = response.data.code || "Service Unavailable";
+            if (code === "Service Unavailable") {
+                codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
+            } else {
+                codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
+            }
+            codeDisplay.style.display = "flex";
         } catch (error) {
-          console.error("Error generating code:", error);
-          codeDisplay.innerHTML =
-            '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
-          codeDisplay.style.display = "flex";
+            console.error(error);
+            codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
+            codeDisplay.style.display = "flex";
         } finally {
-          loadingSpinner.style.display = "none";
+            loadingSpinner.style.display = "none";
         }
-      });
-      function copyCode() {
-        const codeDisplay = document.getElementById("codeDisplay").innerText;
-        const code = codeDisplay.replace("CODE: ", "");
-        navigator.clipboard
-          .writeText(code)
-          .then(() => {
+    });
+
+    function copyCode() {
+        const codeDisplayDiv = document.getElementById("codeDisplay");
+        let rawText = codeDisplayDiv.innerText || codeDisplayDiv.textContent;
+        let codeToCopy = "";
+        if (rawText.includes("CODE:")) {
+            let parts = rawText.split("CODE:");
+            codeToCopy = parts.length > 1 ? parts[1].trim() : rawText;
+        } else {
+            codeToCopy = rawText;
+        }
+        if (codeToCopy === "Your pair code will appear here" || codeToCopy.includes("Error")) {
+            alert("No valid code to copy!");
+            return;
+        }
+        navigator.clipboard.writeText(codeToCopy).then(() => {
             const copyBtn = document.getElementById("copy");
             const originalText = copyBtn.innerHTML;
             copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => {
-              copyBtn.innerHTML = originalText;
-            }, 2000);
-          })
-          .catch((err) => {
-            console.error("Failed to copy text: ", err);
-          });
-      }
-    </script>
-  </body>
+            setTimeout(() => { copyBtn.innerHTML = originalText; }, 2000);
+        }).catch(() => alert("Manual copy required"));
+    }
+
+    document.getElementById("copy").addEventListener("click", copyCode);
+    window.addEventListener("load", () => {
+        currentMode = "pair";
+        document.getElementById("qrDisplay").style.display = "none";
+        document.getElementById("codeDisplay").style.display = "flex";
+        document.getElementById("submit").classList.remove("hidden");
+        document.getElementById("inputGroup").classList.remove("hidden");
+    });
+</script>
+</body>
 </html>
